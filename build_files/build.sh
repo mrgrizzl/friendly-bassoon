@@ -22,7 +22,7 @@ dnf5 -y install niri dms dms-greeter
 dnf5 -y copr disable avengemedia/dms
 
 #### Bind DMS to niri's service
-systemctl add-wants niri.service dms
+systemctl --global add-wants niri.service dms
 
 #### Enabling a System Unit File
 systemctl enable greetd
