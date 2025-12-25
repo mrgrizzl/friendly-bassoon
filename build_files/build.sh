@@ -18,10 +18,13 @@ dnf5 install -y \
     gnome-keyring-pam \
     gvfs-afc \
     gvfs-mtp \
-    hel \
+    helix \
     ifuse \
     micro \
-    pass
+    pass \
+    xdg-desktop-portal-gnome \
+    xdg-desktop-portal-gtk \
+    xdg-user-dirs
 
 # Use a COPR
 dnf5 -y copr enable avengemedia/dms
