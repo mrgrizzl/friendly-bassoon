@@ -17,13 +17,36 @@ dnf5 install -y gvfs-afc gvfs-mtp helix ifuse micro pass
 
 # Use a COPR
 dnf5 -y copr enable avengemedia/dms
-dnf5 -y install niri dms dms-greeter
+dnf5 -y install --setopt=install_weak_deps=False \
+    niri \
+    dms \
+    dms-greeter
 # Disable COPRs so they don't end up enabled on the final image:
 dnf5 -y copr disable avengemedia/dms
 
-#### Bind DMS to niri's service
-systemctl --global add-wants niri.service dms
+###
+sed --sandbox -i -e '/gnome_keyring.so/ s/-auth/auth/ ; \
+    /gnome_keyring.so/ s/-session/session/' /etc/pam.d/greetd
 
 #### Enabling a System Unit File
 systemctl enable greetd
-systemctl enable podman.socket
+# systemctl enable podman.socket
+
+cp -avf "/ctx/files"/. /
+
+#### Bind DMS to niri's service
+# systemctl --global add-wants niri.service dms
+
+###
+systemctl enable --global dms.service
+# systemctl --global enable dsearch
+
+# Saving space
+rm -rf /usr/share/doc
+# rm -rf /usr/bin/chsh
+
+# REQUIRED for dms-greeter to work
+tee /usr/lib/sysusers.d/greeter.conf <<'EOF'
+g greeter 767
+u greeter 767 "Greetd greeter"
+EOF
