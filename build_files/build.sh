@@ -13,7 +13,15 @@ set -ouex pipefail
 dnf5 remove -y tmux
 
 # this installs a package from fedora repos
-dnf5 install -y gvfs-afc gvfs-mtp helix ifuse micro pass
+dnf5 install -y \
+    gnome-keyring \
+    gnome-keyring-pam \
+    gvfs-afc \
+    gvfs-mtp \
+    hel \
+    ifuse \
+    micro \
+    pass
 
 # Use a COPR
 dnf5 -y copr enable avengemedia/dms
@@ -25,8 +33,7 @@ dnf5 -y install --setopt=install_weak_deps=False \
 dnf5 -y copr disable avengemedia/dms
 
 ###
-sed --sandbox -i -e '/gnome_keyring.so/ s/-auth/auth/ ; \
-    /gnome_keyring.so/ s/-session/session/' /etc/pam.d/greetd
+sed --sandbox -i -e '/gnome_keyring.so/ s/-auth/auth/ ; /gnome_keyring.so/ s/-session/session/' /etc/pam.d/greetd
 
 #### Enabling a System Unit File
 systemctl enable greetd
