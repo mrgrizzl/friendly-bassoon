@@ -14,6 +14,7 @@ dnf5 remove -y tmux
 
 # this installs a package from fedora repos
 dnf5 install -y \
+    foot \
     gnome-keyring \
     gnome-keyring-pam \
     gvfs-afc \
@@ -53,7 +54,7 @@ systemctl enable --global dms.service
 
 # Saving space
 rm -rf /usr/share/doc
-# rm -rf /usr/bin/chsh
+rm -rf /usr/bin/chsh
 
 # REQUIRED for dms-greeter to work
 tee /usr/lib/sysusers.d/greeter.conf <<'EOF'
