@@ -52,12 +52,54 @@ cp -avf "/ctx/files"/. /
 systemctl enable --global dms.service
 # systemctl --global enable dsearch
 
-# Saving space
-rm -rf /usr/share/doc
-rm -rf /usr/bin/chsh
-
 # REQUIRED for dms-greeter to work
 tee /usr/lib/sysusers.d/greeter.conf <<'EOF'
 g greeter 767
 u greeter 767 "Greetd greeter"
 EOF
+
+# System conf (and os-release)
+HOME_URL="https://github.com/mrgrizzl/friendly-bassoon"
+DATE=$(date +'%Y%m%d')
+echo "slimblue" | tee "/etc/hostname"
+# OS Release File (changed in order with upstream)
+# TODO: change ANSI_COLOR
+sed -i -f - /usr/lib/os-release <<EOF
+s|^NAME=.*|NAME=\"Slimblue Linux\"|
+s|^VERSION=.*|VERSION=\"slim.${DATE} (Niri Atomic)\"|
+s|^VERSION_CODENAME=.*|VERSION_CODENAME=""|
+s|^PRETTY_NAME=.*|PRETTY_NAME=\"Slimblue Linux slim.${DATE} (Niri Atomic)\"|
+s|^CPE_NAME=\".*\"|CPE_NAME=\"cpe:/o:mrgrizzl:friendly-bassoon\"|
+s|^DEFAULT_HOSTNAME=.*|DEFAULT_HOSTNAME=\"slimblue\"|
+s|^HOME_URL=.*|HOME_URL=\"${HOME_URL}\"|
+s|^DOCUMENTATION_URL=.*|DOCUMENTATION_URL=\"${HOME_URL}\"|
+s|^SUPPORT_URL=.*|SUPPORT_URL=\"${HOME_URL}/issues\"|
+s|^BUG_REPORT_URL=.*|BUG_REPORT_URL=\"${HOME_URL}/issues\"|
+s|^VARIANT=.*|VARIANT=\"Niri Atomic\"|
+s|^VARIANT_ID=.*|VARIANT_ID=\"niri-atomic\"|
+s|^OSTREE_VERSION=.*|OSTREE_VERSION=\"slim.${DATE}\"|
+
+/^REDHAT_BUGZILLA_PRODUCT=/d
+/^REDHAT_BUGZILLA_PRODUCT_VERSION=/d
+/^REDHAT_SUPPORT_PRODUCT=/d
+/^REDHAT_SUPPORT_PRODUCT_VERSION=/d
+EOF
+
+# Cleanup
+echo "==> Available space before cleanup"
+df -h
+
+rm -rf /usr/share/doc
+
+echo "==> Available space after cleanup"
+df -h
+
+rm -rf /usr/bin/chsh
+
+echo "==> Available space after cleanup"
+df -h
+
+dnf5 -y clean all
+
+echo "==> Available space after cleanup"
+df -h
