@@ -44,7 +44,7 @@
       "ghcr.io/mrgrizzl": [
         {
           "type": "sigstoreSigned",
-          "keyPaths": ["/etc/pki/containers/slimblue.pub"],
+          "keyPaths": "/etc/pki/containers/slimblue.pub",
           "signedIdentity": {
             "type": "matchRepository"
           }
