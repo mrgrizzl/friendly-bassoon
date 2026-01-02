@@ -23,6 +23,7 @@ dnf5 install -y \
     ifuse \
     micro \
     pass \
+    tor \
     xdg-desktop-portal-gnome \
     xdg-desktop-portal-gtk \
     xdg-user-dirs
@@ -40,6 +41,7 @@ dnf5 -y copr disable avengemedia/dms
 sed --sandbox -i -e '/gnome_keyring.so/ s/-auth/auth/ ; /gnome_keyring.so/ s/-session/session/' /etc/pam.d/greetd
 
 #### Enabling a System Unit File
+systemctl enable tor
 systemctl enable greetd
 # systemctl enable podman.socket
 
