@@ -13,8 +13,8 @@ set -ouex pipefail
 dnf5 remove -y tmux
 
 # this installs a package from fedora repos
+# dnsmasq
 dnf5 install -y \
-	# dnsmasq \
     foot \
     gnome-keyring \
     gnome-keyring-pam \
