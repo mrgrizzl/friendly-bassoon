@@ -14,6 +14,7 @@ dnf5 remove -y tmux
 
 # this installs a package from fedora repos
 dnf5 install -y \
+	# dnsmasq \
     foot \
     gnome-keyring \
     gnome-keyring-pam \
@@ -22,18 +23,19 @@ dnf5 install -y \
     helix \
     ifuse \
     micro \
+    mozilla-noscript \
     pass \
+    privoxy \
     tor \
     xdg-desktop-portal-gnome \
-    xdg-desktop-portal-gtk \
     xdg-user-dirs
 
 # Use a COPR
 dnf5 -y copr enable avengemedia/dms
 dnf5 -y install --setopt=install_weak_deps=False \
-    niri \
     dms \
-    dms-greeter
+    dms-greeter \
+    niri
 # Disable COPRs so they don't end up enabled on the final image:
 dnf5 -y copr disable avengemedia/dms
 
@@ -41,7 +43,9 @@ dnf5 -y copr disable avengemedia/dms
 sed --sandbox -i -e '/gnome_keyring.so/ s/-auth/auth/ ; /gnome_keyring.so/ s/-session/session/' /etc/pam.d/greetd
 
 #### Enabling a System Unit File
+# systemctl enable dnsmasq
 systemctl enable greetd
+systemctl enable privoxy
 # systemctl enable podman.socket
 
 cp -avf "/ctx/files"/. /
@@ -50,8 +54,9 @@ cp -avf "/ctx/files"/. /
 # systemctl --global add-wants niri.service dms
 
 ###
-systemctl enable --global tor
 systemctl enable --global dms.service
+# systemctl enable --global privoxy
+# systemctl enable --global tor
 # systemctl --global enable dsearch
 
 # REQUIRED for dms-greeter to work
@@ -63,7 +68,7 @@ EOF
 # System conf (and os-release)
 HOME_URL="https://github.com/mrgrizzl/friendly-bassoon"
 DATE=$(date +'%Y%m%d')
-echo "slimblue" | tee "/etc/hostname"
+# echo "slimblue" | tee "/etc/hostname"
 # OS Release File (changed in order with upstream)
 # TODO: change ANSI_COLOR
 sed -i -f - /usr/lib/os-release <<EOF
