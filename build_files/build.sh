@@ -41,7 +41,6 @@ dnf5 -y copr disable avengemedia/dms
 sed --sandbox -i -e '/gnome_keyring.so/ s/-auth/auth/ ; /gnome_keyring.so/ s/-session/session/' /etc/pam.d/greetd
 
 #### Enabling a System Unit File
-systemctl enable tor
 systemctl enable greetd
 # systemctl enable podman.socket
 
@@ -51,6 +50,7 @@ cp -avf "/ctx/files"/. /
 # systemctl --global add-wants niri.service dms
 
 ###
+systemctl enable --global tor
 systemctl enable --global dms.service
 # systemctl --global enable dsearch
 
