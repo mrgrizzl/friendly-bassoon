@@ -5,8 +5,11 @@ set -ouex pipefail
 ### Variables
 BASE_TAG=${1}
 IMAGE_NAME=${2}
-VENDOR=${3}
-DATE=${4}
+IMAGE_DESC=${3}
+IMAGE_VARIANT=${4}
+IMAGE_VARIANT_ID=${5}
+VENDOR=${6}
+DATE=${7}
 HOME_URL="https://github.com/${VENDOR}/${IMAGE_NAME}"
 
 ### Install packages
@@ -74,18 +77,18 @@ EOF
 # OS Release File (changed in order with upstream)
 # TODO: change ANSI_COLOR
 sed -i -f - /usr/lib/os-release <<EOF
-s|^NAME=.*|NAME=\"Slimblue Linux\"|
-s|^VERSION=.*|VERSION=\"${BASE_TAG}.${DATE} (Niri Atomic)\"|
+s|^NAME=.*|NAME=\"${IMAGE_DESC}\"|
+s|^VERSION=.*|VERSION=\"${BASE_TAG}.${DATE} (${IMAGE_VARIANT})\"|
 s|^VERSION_CODENAME=.*|VERSION_CODENAME=""|
-s|^PRETTY_NAME=.*|PRETTY_NAME=\"Slimblue Linux ${BASE_TAG}.${DATE} (Niri Atomic)\"|
+s|^PRETTY_NAME=.*|PRETTY_NAME=\"${IMAGE_DESC} ${BASE_TAG}.${DATE} (${IMAGE_VARIANT})\"|
 s|^CPE_NAME=\".*\"|CPE_NAME=\"cpe:/o:${VENDOR}:${IMAGE_NAME}\"|
 s|^DEFAULT_HOSTNAME=.*|DEFAULT_HOSTNAME=\"slimblue\"|
 s|^HOME_URL=.*|HOME_URL=\"${HOME_URL}\"|
 s|^DOCUMENTATION_URL=.*|DOCUMENTATION_URL=\"${HOME_URL}\"|
 s|^SUPPORT_URL=.*|SUPPORT_URL=\"${HOME_URL}/issues\"|
 s|^BUG_REPORT_URL=.*|BUG_REPORT_URL=\"${HOME_URL}/issues\"|
-s|^VARIANT=.*|VARIANT=\"Niri Atomic\"|
-s|^VARIANT_ID=.*|VARIANT_ID=\"niri-atomic\"|
+s|^VARIANT=.*|VARIANT=\"${IMAGE_VARIANT}\"|
+s|^VARIANT_ID=.*|VARIANT_ID=\"${IMAGE_VARIANT_ID}\"|
 s|^OSTREE_VERSION=.*|OSTREE_VERSION=\"${BASE_TAG}.${DATE}\"|
 
 /^REDHAT_BUGZILLA_PRODUCT=/d

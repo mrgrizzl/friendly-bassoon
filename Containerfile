@@ -7,6 +7,9 @@ COPY cosign.pub /files/etc/pki/containers/slimblue.pub
 
 ARG BASE_TAG
 ARG IMAGE_NAME
+ARG IMAGE_DESC
+ARG IMAGE_VARIANT
+ARG IMAGE_VARIANT_ID
 ARG VENDOR
 ARG DATE
 
@@ -41,7 +44,7 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
-    /ctx/build/build.sh ${BASE_TAG} ${IMAGE_NAME} ${VENDOR} ${DATE}
+   /ctx/build/build.sh ${BASE_TAG} ${IMAGE_NAME} ${IMAGE_DESC} ${IMAGE_VARIANT} ${IMAGE_VARIANT_ID} ${VENDOR} ${DATE}
 
 ### LINTING
 ## Verify final image and contents are correct.
