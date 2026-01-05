@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_DESC: "Slimblue Linux"
+  IMAGE_DESC: "${{ github.event.repository.name^ }} Image"
   IMAGE_VARIANT: "Niri Atomic"
   IMAGE_VARIANT_ID: "niri-atomic"
   IMAGE_KEYWORDS: "bootc,ublue,universal-blue,slimblue"

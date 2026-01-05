@@ -71,12 +71,12 @@ EOF
 # OS Release File (changed in order with upstream)
 # TODO: change ANSI_COLOR
 sed -i -f - /usr/lib/os-release <<EOF
-s|^NAME=.*|NAME=\"${IMAGE_DESC}\"|
+s|^NAME=.*|NAME=\"${IMAGE_NAME^} Linux\"|
 s|^VERSION=.*|VERSION=\"${BASE_TAG}.${DATE} (${IMAGE_VARIANT})\"|
 s|^VERSION_CODENAME=.*|VERSION_CODENAME=""|
-s|^PRETTY_NAME=.*|PRETTY_NAME=\"${IMAGE_DESC} ${BASE_TAG}.${DATE} (${IMAGE_VARIANT})\"|
+s|^PRETTY_NAME=.*|PRETTY_NAME=\"${IMAGE_NAME^} Linux ${BASE_TAG}.${DATE} (${IMAGE_VARIANT})\"|
 s|^CPE_NAME=\".*\"|CPE_NAME=\"cpe:/o:${VENDOR}:${IMAGE_NAME}\"|
-s|^DEFAULT_HOSTNAME=.*|DEFAULT_HOSTNAME=\"slimblue\"|
+s|^DEFAULT_HOSTNAME=.*|DEFAULT_HOSTNAME=\"${IMAGE_NAME}\"|
 s|^HOME_URL=.*|HOME_URL=\"${HOME_URL}\"|
 s|^DOCUMENTATION_URL=.*|DOCUMENTATION_URL=\"${HOME_URL}\"|
 s|^SUPPORT_URL=.*|SUPPORT_URL=\"${HOME_URL}/issues\"|
@@ -91,6 +91,7 @@ s|^OSTREE_VERSION=.*|OSTREE_VERSION=\"${BASE_TAG}.${DATE}\"|
 /^REDHAT_SUPPORT_PRODUCT_VERSION=/d
 EOF
 
+echo "${IMAGE_DESC}"
 cat /etc/os-release
 
 # Cleanup
