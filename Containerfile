@@ -44,7 +44,14 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
-   /ctx/build/build.sh ${BASE_TAG} ${IMAGE_NAME} ${IMAGE_DESC} ${IMAGE_VARIANT} ${IMAGE_VARIANT_ID} ${VENDOR} ${DATE}
+    --env BASE_TAG=${BASE_TAG} \
+    --env IMAGE_NAME=${IMAGE_NAME} \
+    --env IMAGE_DESC=${IMAGE_DESC} \
+    --env IMAGE_VARIANT=${IMAGE_VARIANT} \
+    --env IMAGE_VARIANT_ID=${IMAGE_VARIANT_ID} \
+    --env VENDOR=${VENDOR} \
+    --env DATE=${DATE} \
+   /ctx/build/build.sh
 
 ### LINTING
 ## Verify final image and contents are correct.

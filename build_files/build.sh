@@ -3,13 +3,6 @@
 set -ouex pipefail
 
 ### Variables
-BASE_TAG=${1}
-IMAGE_NAME=${2}
-IMAGE_DESC=${3}
-IMAGE_VARIANT=${4}
-IMAGE_VARIANT_ID=${5}
-VENDOR=${6}
-DATE=${7}
 HOME_URL="https://github.com/${VENDOR}/${IMAGE_NAME}"
 
 ### Install packages
