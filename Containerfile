@@ -2,6 +2,7 @@
 FROM scratch AS ctx
 COPY build_files /build
 COPY sys_files /files
+COPY --from=ghcr.io/ublue-os/brew:latest /system_files /files
 COPY cosign.pub /files/etc/pki/containers/slimblue.pub
 
 # Base Image
