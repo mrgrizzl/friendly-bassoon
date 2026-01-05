@@ -10,7 +10,9 @@ set -ouex pipefail
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
 
 # this installs a package from fedora repos
-dnf5 remove -y tmux
+dnf5 remove -y \
+	sssd* \
+	tmux
 
 # this installs a package from fedora repos
 # dnsmasq
@@ -25,8 +27,6 @@ dnf5 install -y \
     micro \
     mozilla-noscript \
     pass \
-    privoxy \
-    tor \
     xdg-desktop-portal-gnome \
     xdg-user-dirs
 
@@ -43,9 +43,7 @@ dnf5 -y copr disable avengemedia/dms
 sed --sandbox -i -e '/gnome_keyring.so/ s/-auth/auth/ ; /gnome_keyring.so/ s/-session/session/' /etc/pam.d/greetd
 
 #### Enabling a System Unit File
-# systemctl enable dnsmasq
 systemctl enable greetd
-systemctl enable privoxy
 # systemctl enable podman.socket
 
 cp -avf "/ctx/files"/. /
@@ -55,9 +53,8 @@ cp -avf "/ctx/files"/. /
 
 ###
 systemctl enable --global dms.service
-# systemctl enable --global privoxy
-# systemctl enable --global tor
 # systemctl --global enable dsearch
+systemctl enable brew-setup.service
 
 # REQUIRED for dms-greeter to work
 tee /usr/lib/sysusers.d/greeter.conf <<'EOF'
