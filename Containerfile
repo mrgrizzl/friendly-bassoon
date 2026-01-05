@@ -6,12 +6,6 @@ COPY --from=ghcr.io/ublue-os/brew:latest /system_files /files
 COPY cosign.pub /files/etc/pki/containers/slimblue.pub
 
 ARG BASE_TAG
-ARG IMAGE_NAME
-ARG IMAGE_DESC
-ARG IMAGE_VARIANT
-ARG IMAGE_VARIANT_ID
-ARG VENDOR
-ARG DATE
 
 # Base Image
 FROM ghcr.io/ublue-os/base-main:${BASE_TAG}
@@ -40,17 +34,17 @@ FROM ghcr.io/ublue-os/base-main:${BASE_TAG}
 ## make modifications desired in your image and install packages by modifying the build.sh script
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
 
+ARG IMAGE_NAME
+ARG IMAGE_DESC
+ARG IMAGE_VARIANT
+ARG IMAGE_VARIANT_ID
+ARG VENDOR
+ARG DATE
+
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
-    --env BASE_TAG=${BASE_TAG} \
-    --env IMAGE_NAME=${IMAGE_NAME} \
-    --env IMAGE_DESC=${IMAGE_DESC} \
-    --env IMAGE_VARIANT=${IMAGE_VARIANT} \
-    --env IMAGE_VARIANT_ID=${IMAGE_VARIANT_ID} \
-    --env VENDOR=${VENDOR} \
-    --env DATE=${DATE} \
    /ctx/build/build.sh
 
 ### LINTING
