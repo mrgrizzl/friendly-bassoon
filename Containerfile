@@ -34,6 +34,7 @@ FROM ghcr.io/ublue-os/base-main:${BASE_TAG}
 ## make modifications desired in your image and install packages by modifying the build.sh script
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
 
+ARG BASE_TAG
 ARG IMAGE_NAME
 ARG IMAGE_DESC
 ARG IMAGE_VARIANT
