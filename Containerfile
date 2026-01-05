@@ -40,7 +40,6 @@ ARG IMAGE_DESC
 ARG IMAGE_VARIANT
 ARG IMAGE_VARIANT_ID
 ARG VENDOR
-ARG DATE
 
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \

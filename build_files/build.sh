@@ -3,6 +3,7 @@
 set -ouex pipefail
 
 ### Variables
+DATE=$(date +'%Y%m%d')
 HOME_URL="https://github.com/${VENDOR}/${IMAGE_NAME}"
 
 ### Install packages
