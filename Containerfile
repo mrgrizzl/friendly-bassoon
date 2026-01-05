@@ -5,6 +5,9 @@ COPY sys_files /files
 COPY --from=ghcr.io/ublue-os/brew:latest /system_files /files
 COPY cosign.pub /files/etc/pki/containers/slimblue.pub
 
+ARG BASE_TAG
+ARG IMAGE_NAME
+
 # Base Image
 FROM ghcr.io/ublue-os/base-main:${BASE_TAG}
 
