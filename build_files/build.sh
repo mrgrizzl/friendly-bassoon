@@ -73,7 +73,7 @@ s|^NAME=.*|NAME=\"Slimblue Linux\"|
 s|^VERSION=.*|VERSION=\"slim.${DATE} (Niri Atomic)\"|
 s|^VERSION_CODENAME=.*|VERSION_CODENAME=""|
 s|^PRETTY_NAME=.*|PRETTY_NAME=\"Slimblue Linux slim.${DATE} (Niri Atomic)\"|
-s|^CPE_NAME=\".*\"|CPE_NAME=\"cpe:/o:mrgrizzl:friendly-bassoon\"|
+s|^CPE_NAME=\".*\"|CPE_NAME=\"cpe:/o:mrgrizzl:${IMAGE_NAME}\"|
 s|^DEFAULT_HOSTNAME=.*|DEFAULT_HOSTNAME=\"slimblue\"|
 s|^HOME_URL=.*|HOME_URL=\"${HOME_URL}\"|
 s|^DOCUMENTATION_URL=.*|DOCUMENTATION_URL=\"${HOME_URL}\"|
