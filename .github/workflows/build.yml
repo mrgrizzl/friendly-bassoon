@@ -122,7 +122,7 @@ jobs:
             IMAGE_VARIANT=${{ env.IMAGE_VARIANT }}
             IMAGE_VARIANT_ID=${{ env.IMAGE_VARIANT_ID }}
             VENDOR=${{ github.repository_owner }}
-            DATE=${{date 'YYYYMMDD'}}
+            DATE={{date 'YYYYMMDD'}}
           # Postfix image name with -custom to make it a little more descriptive
           # Syntax: https://docs.github.com/en/actions/learn-github-actions/expressions#format
           image: ${{ env.IMAGE_NAME }}
