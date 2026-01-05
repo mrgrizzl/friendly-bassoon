@@ -2,6 +2,13 @@
 
 set -ouex pipefail
 
+### Variables
+BASE_TAG=${1}
+IMAGE_NAME=${2}
+VENDOR=${3}
+DATE=${4}
+HOME_URL="https://github.com/${VENDOR}/${IMAGE_NAME}"
+
 ### Install packages
 
 # Packages can be installed from any enabled yum repo on the image.
@@ -63,17 +70,15 @@ u greeter 767 "Greetd greeter"
 EOF
 
 # System conf (and os-release)
-HOME_URL="https://github.com/mrgrizzl/friendly-bassoon"
-DATE=$(date +'%Y%m%d')
 # echo "slimblue" | tee "/etc/hostname"
 # OS Release File (changed in order with upstream)
 # TODO: change ANSI_COLOR
 sed -i -f - /usr/lib/os-release <<EOF
 s|^NAME=.*|NAME=\"Slimblue Linux\"|
-s|^VERSION=.*|VERSION=\"slim.${DATE} (Niri Atomic)\"|
+s|^VERSION=.*|VERSION=\"${BASE_TAG}.${DATE} (Niri Atomic)\"|
 s|^VERSION_CODENAME=.*|VERSION_CODENAME=""|
-s|^PRETTY_NAME=.*|PRETTY_NAME=\"Slimblue Linux slim.${DATE} (Niri Atomic)\"|
-s|^CPE_NAME=\".*\"|CPE_NAME=\"cpe:/o:mrgrizzl:${IMAGE_NAME}\"|
+s|^PRETTY_NAME=.*|PRETTY_NAME=\"Slimblue Linux ${BASE_TAG}.${DATE} (Niri Atomic)\"|
+s|^CPE_NAME=\".*\"|CPE_NAME=\"cpe:/o:${VENDOR}:${IMAGE_NAME}\"|
 s|^DEFAULT_HOSTNAME=.*|DEFAULT_HOSTNAME=\"slimblue\"|
 s|^HOME_URL=.*|HOME_URL=\"${HOME_URL}\"|
 s|^DOCUMENTATION_URL=.*|DOCUMENTATION_URL=\"${HOME_URL}\"|
@@ -81,7 +86,7 @@ s|^SUPPORT_URL=.*|SUPPORT_URL=\"${HOME_URL}/issues\"|
 s|^BUG_REPORT_URL=.*|BUG_REPORT_URL=\"${HOME_URL}/issues\"|
 s|^VARIANT=.*|VARIANT=\"Niri Atomic\"|
 s|^VARIANT_ID=.*|VARIANT_ID=\"niri-atomic\"|
-s|^OSTREE_VERSION=.*|OSTREE_VERSION=\"slim.${DATE}\"|
+s|^OSTREE_VERSION=.*|OSTREE_VERSION=\"${BASE_TAG}.${DATE}\"|
 
 /^REDHAT_BUGZILLA_PRODUCT=/d
 /^REDHAT_BUGZILLA_PRODUCT_VERSION=/d

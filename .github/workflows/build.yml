@@ -116,6 +116,8 @@ jobs:
           build-args: |
             BASE_TAG=${{ env.BASE_TAG }}
             IMAGE_NAME=${{ env.IMAGE_NAME }}
+            VENDOR=${{ github.repository_owner }}
+            DATE=${{date 'YYYYMMDD'}}
           # Postfix image name with -custom to make it a little more descriptive
           # Syntax: https://docs.github.com/en/actions/learn-github-actions/expressions#format
           image: ${{ env.IMAGE_NAME }}
