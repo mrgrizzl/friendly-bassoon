@@ -89,6 +89,8 @@ s|^OSTREE_VERSION=.*|OSTREE_VERSION=\"slim.${DATE}\"|
 /^REDHAT_SUPPORT_PRODUCT_VERSION=/d
 EOF
 
+cat /etc/os-release
+
 # Cleanup
 echo "==> Available space before cleanup"
 df -h
